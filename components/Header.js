@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import Favorites from './Favorites';
 import {
 	Container,
-	Header as NativeBaseHeader,
+	Header as NBHeader,
 	Body,
 	Title,
-	Tabs,
-	Tab
+	Item,
+	Input,
+	Icon
 } from 'native-base';
 
 export default class Header extends Component<{}> {
 	
 	render() {
-		return (
-			<Container>
-				<NativeBaseHeader hasTabs>
+		if(this.props.screen === 'Favorites') {
+			return (
+				<NBHeader>
 					<Body>
 					<Title>Favorite Locations</Title>
 					</Body>
-				</NativeBaseHeader>
-				<Tabs initialPage={1}>
-					<Tab heading="Favorites">
-						<Favorites locations={this.props.locations}/>
-					</Tab>
-					<Tab heading="Search">
-					
-					</Tab>
-				</Tabs>
-			</Container>
-		)
+				</NBHeader>
+			)
+		} else if(this.props.screen === 'Search'){
+			return (
+				<NBHeader searchBar rounded>
+					<Item>
+						<Icon name="ios-search" />
+						<Input placeholder="Search" />
+					</Item>
+				</NBHeader>
+			)
+		}
 	}
 }

@@ -7,16 +7,15 @@ import {
 	Thumbnail,
 	Body,
 	Button,
-	Icon
 } from 'native-base';
 
-export default class Favorites extends Component<{}> {
+export default class FavoritesScreen extends Component<{}> {
 	
 	render() {
 		return (
 			<ScrollView>
 				<List>
-					{this.props.locations.map(location => (
+					{this.props.screenProps.map(location => (
 						<ListItem key={location.id}>
 							<Thumbnail square size={80} source={{ uri: 'https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg' }} />
 							<Body>

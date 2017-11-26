@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Container } from 'native-base';
 import Header from './components/Header';
+import FooterTabs from './components/FooterTabs';
 
 export default class App extends Component<{}> {
 	
 	state = {
+		currentScreen: 'Favorites',
 		locations: [
 			{
 				id: 1,
@@ -24,9 +27,26 @@ export default class App extends Component<{}> {
 		]
 	};
 	
+	getCurrentRouteName = (navigationState) => {
+		if (!navigationState) return null;
+		const route = navigationState.routes[navigationState.index];
+		if (route.routes) return getCurrentRouteName(route);
+		return route.routeName;
+	};
+	
   render() {
     return (
-			<Header locations={this.state.locations}/>
+			<Container>
+				<Header screen={this.state.currentScreen}/>
+				<FooterTabs screenProps={this.state.locations}
+										onNavigationStateChange={(prevState, currentState) => {
+											this.setState(
+												{currentScreen: this.getCurrentRouteName(currentState)}
+											);
+										}}
+				/>
+			</Container>
     );
   }
+  
 }
